@@ -28,7 +28,7 @@ namespace IngaExam2_0
             if (user != null && user["HashedPassword"].ToString() == hashedPassword)
             {
                 labelMessage.Visible = false;
-                MessageBox.Show("Вхід успішно виконано ^^");
+                MessageBox.Show("Login successful ^^");
                 CurrentUsername = login;
                 CurrentRole = user["Role"].ToString();
                 this.DialogResult = DialogResult.OK;
@@ -36,7 +36,7 @@ namespace IngaExam2_0
             }
             else
             {
-                labelMessage.Text = "!Логін або пароль вказано не вірно!";
+                labelMessage.Text = "!Login or password is incorrect!";
                 labelMessage.Visible = true;
             }
         }
@@ -56,6 +56,11 @@ namespace IngaExam2_0
             // Відкриття форми реєстрації
             RegisterForm regForm = new RegisterForm();
             regForm.ShowDialog();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

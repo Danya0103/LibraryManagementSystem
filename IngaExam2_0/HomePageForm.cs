@@ -9,5 +9,10 @@ namespace IngaExam2_0
         {
             InitializeComponent();
         }
+
+        private void HomePageForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

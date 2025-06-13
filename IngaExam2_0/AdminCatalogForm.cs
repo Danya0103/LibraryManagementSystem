@@ -29,9 +29,9 @@ namespace IngaExam2_0
             {
                 bool success = DatabaseHelper.InsertBook(bookForm.BookTitle, bookForm.Author, bookForm.Year, bookForm.ISBN);
                 if (success)
-                    MessageBox.Show("Книга додана успішно.");
+                    MessageBox.Show("Book was added successfully.");
                 else
-                    MessageBox.Show("Книга з таким ISBN вже існує!");
+                    MessageBox.Show("A book with this ISBN already exists!");
                 LoadBooks();
             }
         }
@@ -51,15 +51,15 @@ namespace IngaExam2_0
                 {
                     bool success = DatabaseHelper.UpdateBook(bookId, bookForm.BookTitle, bookForm.Author, bookForm.Year, bookForm.ISBN);
                     if (success)
-                        MessageBox.Show("Книгу оновлено успішно.");
+                        MessageBox.Show("Book was updated successfully.");
                     else
-                        MessageBox.Show("Книга з таким ISBN вже існує!");
+                        MessageBox.Show("A book with this ISBN already exists!");
                     LoadBooks();
                 }
             }
             else
             {
-                MessageBox.Show("Оберіть книгу для редагування!");
+                MessageBox.Show("Choose a book to edit!");
             }
         }
 
@@ -68,7 +68,7 @@ namespace IngaExam2_0
             if (dgvBooks.SelectedRows.Count > 0)
             {
                 int bookId = Convert.ToInt32(dgvBooks.SelectedRows[0].Cells["BookId"].Value);
-                DialogResult result = MessageBox.Show("Видалити книгу?", "Підтвердження", MessageBoxButtons.YesNo);
+                DialogResult result = MessageBox.Show("Delete book?", "Confirm", MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
                 {
                     DatabaseHelper.DeleteBook(bookId);
@@ -77,7 +77,7 @@ namespace IngaExam2_0
             }
             else
             {
-                MessageBox.Show("Оберіть книгу для видалення!");
+                MessageBox.Show("Select the book to delete!");
             }
         }
     }

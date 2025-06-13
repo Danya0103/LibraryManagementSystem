@@ -42,25 +42,25 @@ namespace IngaExam2_0
             {
                 int bookId = Convert.ToInt32(dgvBooks.SelectedRows[0].Cells["BookId"].Value);
                 string status = dgvBooks.SelectedRows[0].Cells["Status"].Value.ToString();
-                if (status != "в наявності")
+                if (status != "in stock")
                 {
-                    MessageBox.Show("Ця книга вже в оренді!");
+                    MessageBox.Show("This book is already on rent!");
                     return;
                 }
                 if (DatabaseHelper.RentBook(bookId, currentUserId))
                 {
-                    MessageBox.Show("Книга успішно орендована!");
+                    MessageBox.Show("The book has been successfully rented!");
                     LoadBooks(txtFilter.Text.Trim());
                     LoadRentalHistory();
                 }
                 else
                 {
-                    MessageBox.Show("Помилка при оренді книги!");
+                    MessageBox.Show("Error when renting a book!");
                 }
             }
             else
             {
-                MessageBox.Show("Оберіть книгу для оренди!");
+                MessageBox.Show("Choose a book to rent!");
             }
         }
     }

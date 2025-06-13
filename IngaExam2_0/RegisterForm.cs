@@ -23,19 +23,19 @@ namespace IngaExam2_0
 
             if (password1.Length < 8)
             {
-                errorPassword1.Text = "!Пароль має містити мінімум 8 символів!";
+                errorPassword1.Text = "!Password must contain at least 8 characters!";
                 errorPassword1.Visible = true;
                 isValidInfo = false;
             }
             if (password1 != password2)
             {
-                errorPassword2.Text = "!Паролі не співпадають!";
+                errorPassword2.Text = "!The passwords do not match!";
                 errorPassword2.Visible = true;
                 isValidInfo = false;
             }
             if (login.Length < 5)
             {
-                errorLogin.Text = "!Логін має містити мінімум 5 символів!";
+                errorLogin.Text = "!Login must contain at least 5 characters!";
                 errorLogin.Visible = true;
                 isValidInfo = false;
             }
@@ -51,7 +51,7 @@ namespace IngaExam2_0
             }
             else
             {
-                errorRole.Text = "Оберіть роль, будь ласка";
+                errorRole.Text = "Please choose a role.";
                 errorRole.Visible = true;
                 isValidInfo = false;
             }
@@ -61,11 +61,11 @@ namespace IngaExam2_0
                 bool success = DatabaseHelper.RegisterUser(login, hashedPassword, role);
                 if (success)
                 {
-                    MessageBox.Show("Реєстрацію пройдено успішно.");
+                    MessageBox.Show("Registration was successful.");
                 }
                 else
                 {
-                    MessageBox.Show("Користувач з таким логіном вже існує.");
+                    MessageBox.Show("A user with this login already exists.");
                 }
             }
         }

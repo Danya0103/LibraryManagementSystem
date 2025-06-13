@@ -64,7 +64,7 @@
             this.buttonLogin.BackColor = System.Drawing.SystemColors.ControlText;
             this.buttonLogin.Font = new System.Drawing.Font("Script MT Bold", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonLogin.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.buttonLogin.Location = new System.Drawing.Point(224, 309);
+            this.buttonLogin.Location = new System.Drawing.Point(191, 309);
             this.buttonLogin.Name = "buttonLogin";
             this.buttonLogin.Size = new System.Drawing.Size(119, 38);
             this.buttonLogin.TabIndex = 2;
@@ -95,9 +95,9 @@
             this.buttonRegister.BackColor = System.Drawing.SystemColors.ControlText;
             this.buttonRegister.Font = new System.Drawing.Font("Script MT Bold", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonRegister.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.buttonRegister.Location = new System.Drawing.Point(478, 309);
+            this.buttonRegister.Location = new System.Drawing.Point(449, 309);
             this.buttonRegister.Name = "buttonRegister";
-            this.buttonRegister.Size = new System.Drawing.Size(121, 38);
+            this.buttonRegister.Size = new System.Drawing.Size(150, 38);
             this.buttonRegister.TabIndex = 5;
             this.buttonRegister.Text = "Registration";
             this.buttonRegister.UseVisualStyleBackColor = false;
@@ -119,17 +119,17 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Script MT Bold", 19.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(250, 27);
+            this.label3.Location = new System.Drawing.Point(217, 26);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(232, 39);
+            this.label3.Size = new System.Drawing.Size(385, 39);
             this.label3.TabIndex = 7;
-            this.label3.Text = "Library entrance";
+            this.label3.Text = "Library management system";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.SeaShell;
+            this.BackColor = System.Drawing.Color.Honeydew;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.labelMessage);
@@ -142,6 +142,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

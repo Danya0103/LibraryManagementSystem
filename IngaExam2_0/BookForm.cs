@@ -61,5 +61,10 @@ namespace IngaExam2_0
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
+
+        private void BookForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

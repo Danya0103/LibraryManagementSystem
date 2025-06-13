@@ -15,7 +15,7 @@ namespace IngaExam2_0
             InitializeComponent();
             CurrentUsername = username;
             CurrentRole = role;
-            lblWelcome.Text = $"Ласкаво просимо, {username} ({role})";
+            lblWelcome.Text = $"Welcome, {username} ({role}) ^^";
 
             // За замовчуванням завантажуємо головну (домашню) сторінку
             LoadChildForm(new HomePageForm());
@@ -52,7 +52,7 @@ namespace IngaExam2_0
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Помилка при завантаженні каталогу: " + ex.Message);
+                MessageBox.Show("Error loading catalog: " + ex.Message);
             }
         }
 
@@ -61,6 +61,11 @@ namespace IngaExam2_0
         {
             this.Hide();
             new Form1().Show();
+        }
+
+        private void panelMain_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
