@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Завдання 2</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .modal { 
+
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            z-index: 100;
+
+        }
+
+        .overlay {
+
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 99;
+        }
+
+        button { padding: 10px 20px; margin: 20px; }
+    </style>
+</head>
+<body>
+    <button id="openBtn">Відкрити</button>
+    
+    <div class="overlay" id="overlay"></div>
+    <div class="modal" id="modal">
+        <p>Це модальне вікно</p>
+        <button id="closeBtn">Закрити</button>
+    </div>
+
+    <script>
+        const openBtn = document.getElementById('openBtn');
+        const closeBtn = document.getElementById('closeBtn');
+        const modal = document.getElementById('modal');
+        const overlay = document.getElementById('overlay');
+
+        openBtn.addEventListener('click', () => {
+
+            modal.style.display = 'block';
+            overlay.style.display = 'block';
+
+        });
+
+        closeBtn.addEventListener('click', () => {
+
+            modal.style.display = 'none';
+            overlay.style.display = 'none';
+            
+        });
+    </script>
+</body>
+</html>

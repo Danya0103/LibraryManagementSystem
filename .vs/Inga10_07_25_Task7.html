@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Завдання 7</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .tree ul { display: none; list-style: none; padding-left: 20px; }
+        .tree .open > ul { display: block; }
+        li { cursor: pointer; margin: 5px 0; }
+        li:hover { font-weight: bold; }
+        li::before { content: "📁 "; }
+        .open > li::before { content: "📂 "; }
+    </style>
+</head>
+<body>
+    <ul class="tree">
+        <li>Головна папка
+            <ul>
+                <li>Документи
+                    <ul>
+                        <li>Звіт.docx</li>
+                        <li>Презентація.pptx</li>
+                    </ul>
+                </li>
+                <li>Зображення
+                    <ul>
+                        <li>Фото1.jpg</li>
+                        <li>Фото2.png</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <script>
+        document.querySelectorAll('.tree li').forEach(item => {
+
+            if (item.querySelector('ul')) {
+
+                item.classList.add('has-children');
+                item.addEventListener('click', function(e) {
+
+                    if (e.target === this) {
+
+                        this.classList.toggle('open');
+                        
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

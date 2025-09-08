@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript Завдання</title>
+</head>
+<body>
+    <button onclick="
+        let num = prompt('Введіть число:');
+        if (num > 0) alert('Додатнє');
+        else if (num < 0) alert('Від\'ємне');
+        else alert('Нуль');
+    ">1. Перевірка числа</button>
+
+    <button onclick="
+        let age = prompt('Введіть вік:');
+        if (age >= 0 && age <= 120) alert('OK');
+        else alert('Некоректно');
+    ">2. Перевірка віку</button>
+
+    <button onclick="
+        let n = prompt('Введіть число:');
+        alert(Math.abs(n));
+    ">3. Модуль числа</button>
+
+    <button onclick="
+        let h = prompt('Години:');
+        let m = prompt('Хвилини:');
+        let s = prompt('Секунди:');
+        if (h >= 0 && h < 24 && m >= 0 && m < 60 && s >= 0 && s < 60) alert('OK');
+        else alert('Некоректно');
+    ">4. Перевірка часу</button>
+
+    <button onclick="
+        let x = prompt('X:');
+        let y = prompt('Y:');
+        if (x == 0 && y == 0) alert('Початок координат');
+        else if (x == 0) alert('Вісь Y');
+        else if (y == 0) alert('Вісь X');
+        else if (x > 0 && y > 0) alert('I чверть');
+        else if (x < 0 && y > 0) alert('II чверть');
+        else if (x < 0 && y < 0) alert('III чверть');
+        else alert('IV чверть');
+    ">5. Координати</button>
+
+    <button onclick="
+        let month = prompt('Номер місяця:');
+        switch (month) {
+            case '1': alert('Січень'); break;
+            case '2': alert('Лютий'); break;
+            case '3': alert('Березень'); break;
+            case '4': alert('Квітень'); break;
+            case '5': alert('Травень'); break;
+            case '6': alert('Червень'); break;
+            case '7': alert('Липень'); break;
+            case '8': alert('Серпень'); break;
+            case '9': alert('Вересень'); break;
+            case '10': alert('Жовтень'); break;
+            case '11': alert('Листопад'); break;
+            case '12': alert('Грудень'); break;
+            default: alert('Помилка');
+        }
+    ">6. Місяць (switch)</button>
+
+    <button onclick="
+        let a = +prompt('Перше число:');
+        let b = +prompt('Друге число:');
+        let op = prompt('Операція (+ - * /):');
+        switch (op) {
+            case '+': alert(a + b); break;
+            case '-': alert(a - b); break;
+            case '*': alert(a * b); break;
+            case '/': alert(b ? a / b : 'Помилка'); break;
+            default: alert('Невідома операція');
+        }
+    ">7. Калькулятор (switch)</button>
+
+    <button onclick="
+        let n1 = +prompt('Перше число:');
+        let n2 = +prompt('Друге число:');
+        alert(n1 > n2 ? n1 : n2);
+    ">8. Більше число (тернарний)</button>
+
+    <button onclick="
+        let number = +prompt('Число:');
+        alert(number % 5 === 0 ? 'Кратне 5' : 'Не кратне');
+    ">9. Кратність 5 (тернарний)</button>
+
+    <button onclick="
+        let planet = prompt('Планета:').toLowerCase();
+        alert(planet === 'земля' ? 'Привіт, землянине!' : 'Привіт, інопланетянине!');
+    ">10. Привітання (тернарний)</button>
+</body>
+</html>

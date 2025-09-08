@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript Завдання</title>
+</head>
+<body>
+    <script src="">
+
+        // Завдання 1
+        let number = parseFloat(prompt("Введіть число:"));
+        alert("1. Квадрат числа: " + (number * number));
+
+        // Завдання 2
+        let num1 = parseFloat(prompt("2. Введіть перше число:"));
+        let num2 = parseFloat(prompt("2. Введіть друге число:"));
+        alert("2. Середнє арифметичне: " + ((num1 + num2) / 2));
+
+        // Завдання 3
+        let side = parseFloat(prompt("3. Введіть довжину сторони квадрата:"));
+        alert("3. Площа квадрата: " + (side * side));
+
+        // Завдання 4
+        const KM_TO_MILES = 0.621371;
+        let km = parseFloat(prompt("4. Введіть кілометри:"));
+        alert("4. Милі: " + (km * KM_TO_MILES).toFixed(2));
+
+        // Завдання 5
+        let a = parseFloat(prompt("5. Введіть перше число:"));
+        let b = parseFloat(prompt("5. Введіть друге число:"));
+        alert(`5. Результати:\n+ ${a + b}\n- ${a - b}\n* ${a * b}\n/ ${a / b}`);
+
+        // Завдання 6
+        let a6 = parseFloat(prompt("6. Введіть 'a' для рівняння ax + b = 0:"));
+        let b6 = parseFloat(prompt("6. Введіть 'b' для рівняння ax + b = 0:"));
+        alert("6. x = " + (-b6 / a6));
+
+        // Завдання 7
+        let hours = parseInt(prompt("7. Введіть години (0-23):"));
+        let minutes = parseInt(prompt("7. Введіть хвилини (0-59):"));
+        let totalMinutes = (23 - hours) * 60 + (60 - minutes);
+        alert("7. Залишилось: " + Math.floor(totalMinutes / 60) + " год. " + (totalMinutes % 60) + " хв.");
+
+        // Завдання 8
+        let threeDigit = parseInt(prompt("8. Введіть тризначне число:"));
+        let secondDigit = Math.floor(threeDigit / 10) % 10;
+        alert("8. Друга цифра: " + secondDigit);
+
+        // Завдання 9
+        let fiveDigit = prompt("9. Введіть п'ятизначне число:");
+        let result = fiveDigit[4] + fiveDigit.substring(0, 4);
+        alert("9. Результат: " + result);
+
+        // Завдання 10
+        let sales = parseFloat(prompt("10. Введіть суму продажів ($):"));
+        alert("10. Зарплата: $" + (250 + sales * 0.1).toFixed(2));
+        
+    </script>
+</body>
+</html>

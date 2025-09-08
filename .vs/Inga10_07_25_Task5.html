@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Завдання 5</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        ul { list-style: none; padding: 0; }
+        li { 
+
+            padding: 10px; 
+            margin: 5px 0; 
+            border: 1px solid #ddd;
+            cursor: pointer;
+
+        }
+        .selected { background: orange; }
+    </style>
+</head>
+<body>
+    <ul id="bookList">
+        <li>Гаррі Поттер і Філософський камінь</li>
+        <li>Гаррі Поттер і Таємна кімната</li>
+        <li>Гаррі Поттер і В'язень Азкабану</li>
+        <li>Гаррі Поттер і Келих вогню</li>
+    </ul>
+
+    <script>
+        const bookList = document.getElementById('bookList');
+        let selectedBook = null;
+        
+        bookList.addEventListener('click', (e) => {
+            if (e.target.tagName === 'LI') {
+
+                if (selectedBook) {
+
+                    selectedBook.classList.remove('selected');
+
+                }
+                
+                e.target.classList.add('selected');
+                selectedBook = e.target;
+
+            }
+        });
+    </script>
+</body>
+</html>

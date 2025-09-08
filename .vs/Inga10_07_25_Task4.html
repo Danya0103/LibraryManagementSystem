@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Завдання 4</title>
+    <style>
+        body { display: flex; justify-content: center; align-items: center; height: 100vh; }
+        .traffic-light { 
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+
+        }
+
+        .light {
+
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: gray;
+
+        }
+
+        button { padding: 10px 20px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="traffic-light">
+        <div class="light" id="red"></div>
+        <div class="light" id="yellow"></div>
+        <div class="light" id="green"></div>
+        <button id="nextBtn">Наступний колір</button>
+    </div>
+
+    <script>
+        const lights = {
+
+            red: document.getElementById('red'),
+            yellow: document.getElementById('yellow'),
+            green: document.getElementById('green')
+
+        };
+        const nextBtn = document.getElementById('nextBtn');
+        let currentColor = 'red';
+        
+        function updateLights() {
+
+            Object.values(lights).forEach(light => {
+                light.style.background = 'gray';
+            });
+            
+            lights[currentColor].style.background = currentColor;
+
+        }
+        
+        nextBtn.addEventListener('click', () => {
+
+            const colors = ['red', 'yellow', 'green'];
+            const currentIndex = colors.indexOf(currentColor);
+            currentColor = colors[(currentIndex + 1) % colors.length];
+            updateLights();
+
+        });
+        
+        updateLights();
+    </script>
+</body>
+</html>

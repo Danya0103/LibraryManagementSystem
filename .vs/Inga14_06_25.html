@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Простий тренажер циклів</title>
+</head>
+<body>
+    <h1>Завдання з циклами</h1>
+
+    <div>
+
+        <h2>Цикл WHILE</h2>
+        
+        <button onclick="task1()">1. Вивести # N разів</button><br>
+        <button onclick="task2()">2. Числа від N до 0</button><br>
+        <button onclick="task3()">3. Число у ступені</button><br>
+        <button onclick="task4()">4. Спільні дільники</button><br>
+        <button onclick="task5()">5. Факторіал</button><br>
+
+    </div>
+
+    <div>
+
+        <h2>Цикл DO WHILE</h2>
+        
+        <button onclick="task6()">1. Приклад 2+2*2</button><br>
+        <button onclick="task7()">2. Ділення 1000 на 2</button><br>
+
+    </div>
+
+    <div>
+
+        <h2>Цикл FOR</h2>
+        
+        <button onclick="task8()">1. Кратні числа</button><br>
+        <button onclick="task9()">2. Кожен 4-й елемент</button><br>
+        <button onclick="task10()">3. Просте число</button><br>
+
+    </div>
+
+    <script>
+
+        function task1() {
+
+            let n = parseInt(prompt("Скільки разів вивести '#':"));
+            let result = "";
+            while (n-- > 0) result += "#";
+            alert(result);
+
+        }
+
+        function task2() {
+
+            let n = parseInt(prompt("Введіть число:"));
+            let result = "";
+            while (n >= 0) result += n-- + " ";
+            alert(result);
+
+        }
+
+        function task3() {
+
+            let num = parseFloat(prompt("Введіть число:"));
+            let pow = parseInt(prompt("Введіть ступінь:"));
+            let result = 1;
+            while (pow-- > 0) result *= num;
+            alert(result);
+
+        }
+
+        function task4() {
+
+            let a = parseInt(prompt("Перше число:"));
+            let b = parseInt(prompt("Друге число:"));
+            let min = Math.min(a, b);
+            let result = "";
+            let i = 1;
+            while (i <= min) {
+
+                if (a % i === 0 && b % i === 0) result += i + " ";
+                i++;
+
+            }
+
+            alert("Спільні дільники: " + result);
+
+        }
+
+        function task5() {
+
+            let n = parseInt(prompt("Введіть число:"));
+            let fact = 1;
+            while (n > 0) fact *= n--;
+            alert("Факторіал: " + fact);
+
+        }
+
+        function task6() {
+
+            let answer;
+            do {
+
+                answer = parseInt(prompt("2 + 2 * 2 = ?"));
+            } 
+            
+            while (answer !== 6);
+            alert("Правильно!");
+
+        }
+
+        function task7() {
+
+            let num = 1000;
+            let count = 0;
+            do {
+
+                num /= 2;
+                count++;
+            } 
+            
+            while (num >= 50);
+            alert(`Результат: ${num}\nПоділів: ${count}`);
+
+        }
+
+        function task8() {
+
+            let n = parseInt(prompt("Введіть число:"));
+            let result = "";
+            for (let i = 1; i <= 100; i++) {
+
+                if (i % n === 0) result += i + " ";
+
+            }
+
+            alert(result);
+
+        }
+
+        function task9() {
+
+            let min = parseInt(prompt("Мінімальне число:"));
+            let max = parseInt(prompt("Максимальне число:"));
+            let result = "";
+            for (let i = min; i <= max; i += 4) {
+
+                result += i + " ";
+
+            }
+
+            alert(result);
+
+        }
+
+        function task10() {
+
+            let n = parseInt(prompt("Введіть число:"));
+            let isPrime = n > 1;
+            for (let i = 2; i <= Math.sqrt(n); i++) {
+                if (n % i === 0) {
+
+                    isPrime = false;
+                    break;
+
+                }
+            }
+
+            alert(isPrime ? "Просте число" : "Не просте число");
+
+        }
+        
+    </script>
+</body>
+</html>

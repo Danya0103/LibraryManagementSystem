@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Прості функції</title>
+</head>
+<body>
+<script>
+// 1. Менше число
+function min(a, b) {
+    return a < b ? a : b;
+}
+
+// 2. Степінь числа
+function power(base, exp) {
+    let r = 1;
+    for (let i = 0; i < exp; i++) r = r * base;
+    return r;
+}
+
+// 3. Калькулятор
+function calc(a, b, op) {
+    if (op === '+') return a + b;
+    if (op === '-') return a - b;
+    if (op === '*') return a * b;
+    if (op === '/') return a / b;
+    return 0;
+}
+
+// 4. Просте число
+function isPrime(n) {
+    if (n < 2) return false;
+    for (let i = 2; i * i <= n; i++)
+        if (n % i === 0) return false;
+    return true;
+}
+
+// 5. Таблиця множення
+function multTable(n) {
+    for (let i = 1; i <= 10; i++)
+        console.log(n + ' * ' + i + ' = ' + (n * i));
+}
+
+// 6. Залишок без %
+function mod(a, b) {
+    return a - Math.floor(a / b) * b;
+}
+
+// 7. Сума чисел
+function sum(a, b, c, d, e) {
+    return a + b + (c||0) + (d||0) + (e||0);
+}
+
+// 8. Максимум чисел
+function max(a, b, c, d, e) {
+    let m = a;
+    if (b > m) m = b;
+    if (c > m) m = c;
+    if (d > m) m = d;
+    if (e > m) m = e;
+    return m;
+}
+
+// 9. Парні/непарні
+function printNumbers(start, end, isEven) {
+    for (let i = start; i <= end; i++)
+        if ((i % 2 === 0) === isEven) console.log(i);
+}
+
+// 10. Наступна дата
+function nextDate(d, m, y) {
+    const days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    if ((y % 4 === 0 && y % 100 !== 0) || y % 400 === 0) days[1] = 29;
+    
+    if (d < days[m-1]) return (d+1) + '.' + m + '.' + y;
+    if (m < 12) return '1.' + (m+1) + '.' + y;
+    return '1.1.' + (y+1);
+}
+
+// Перевірка роботи функцій
+console.log('1. min(5,3):', min(5, 3));
+console.log('2. power(2,3):', power(2, 3));
+console.log('3. calc(10,2,"/"):', calc(10, 2, '/'));
+console.log('4. isPrime(7):', isPrime(7));
+console.log('5. Таблиця множення для 3:');
+multTable(3);
+console.log('6. mod(10,3):', mod(10, 3));
+console.log('7. sum(2,3,5):', sum(2, 3, 5));
+console.log('8. max(1,5,2):', max(1, 5, 2));
+console.log('9. Парні числа (1-10):');
+printNumbers(1, 10, true);
+console.log('10. nextDate(31,12,2023):', nextDate(31, 12, 2023));
+</script>
+</body>
+</html>

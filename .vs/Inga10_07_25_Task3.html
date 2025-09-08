@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Завдання 3</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        #field {
+
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background: green;
+            cursor: pointer;
+        }
+
+        #ball {
+
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.5s ease;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="field">
+        <div id="ball"></div>
+    </div>
+
+    <script>
+        const field = document.getElementById('field');
+        const ball = document.getElementById('ball');
+        
+        field.addEventListener('click', (e) => {
+            
+            const fieldRect = field.getBoundingClientRect();
+            
+            let x = e.clientX - fieldRect.left - 50;
+            let y = e.clientY - fieldRect.top - 50;
+            
+            x = Math.max(0, Math.min(x, fieldRect.width - 100));
+            y = Math.max(0, Math.min(y, fieldRect.height - 100));
+            
+            ball.style.left = x + 'px';
+            ball.style.top = y + 'px';
+
+        });
+    </script>
+</body>
+</html>
