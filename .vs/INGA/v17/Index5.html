@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Автозаповнення країн</title>
+    <style>
+        body {
+
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+
+        }
+
+        h1 {
+
+            text-align: center;
+            color: #333;
+
+        }
+
+        .search-container {
+
+            position: relative;
+
+        }
+
+        input {
+
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+
+        }
+
+        .suggestions {
+
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            border: 1px solid #ddd;
+            border-top: none;
+            background: white;
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
+
+        }
+
+        .suggestion {
+
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+
+        }
+
+        .suggestion:hover {
+
+            background-color: #f5f5f5;
+
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Пошук країни</h1>
+    <div class="search-container">
+        <input type="text" id="countryInput" placeholder="Введіть назву країни...">
+        <div id="suggestions" class="suggestions"></div>
+    </div>
+
+    <script>
+        const countries = [
+
+            "Україна", "Сполучені Штати", "Канада", "Велика Британія", "Німеччина",
+            "Франція", "Італія", "Іспанія", "Польща", "Австралія", "Японія", "Китай",
+            "Індія", "Бразилія", "Мексика", "Південна Корея", "Нідерланди", "Швеція",
+            "Норвегія", "Данія", "Фінляндія", "Швейцарія", "Австрія", "Португалія",
+            "Греція", "Туреччина", "Єгипет", "Південна Африка", "Аргентина", "Чилі"
+
+        ];
+
+        const input = document.getElementById('countryInput');
+        const suggestionsContainer = document.getElementById('suggestions');
+
+        input.addEventListener('input', function() {
+
+            const value = this.value.toLowerCase();
+            suggestionsContainer.innerHTML = '';
+            
+            if (value.length === 0) {
+
+                suggestionsContainer.style.display = 'none';
+                return;
+
+            }
+            
+            const filteredCountries = countries.filter(country => 
+                country.toLowerCase().includes(value)
+            ).slice(0, 10);
+            
+            if (filteredCountries.length > 0) {
+
+                suggestionsContainer.style.display = 'block';
+                filteredCountries.forEach(country => {
+
+                    const div = document.createElement('div');
+                    div.className = 'suggestion';
+                    div.textContent = country;
+                    div.addEventListener('click', function() {
+
+                        input.value = country;
+                        suggestionsContainer.style.display = 'none';
+
+                    });
+
+                    suggestionsContainer.appendChild(div);
+                });
+
+            } 
+            
+            else {
+
+                suggestionsContainer.style.display = 'none';
+
+            }
+        });
+
+        document.addEventListener('click', function(e) {
+
+            if (e.target !== input) {
+
+                suggestionsContainer.style.display = 'none';
+
+            }
+        });
+        
+    </script>
+</body>
+</html>

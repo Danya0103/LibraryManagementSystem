@@ -1,0 +1,16 @@
+ul {
+  list-style: none;
+  padding: 0;
+  max-width: 300px;
+}
+li {
+  cursor: pointer;
+  padding: 6px 10px;
+  user-select: none;
+  color: black;
+  border-bottom: 1px solid #ddd;
+}
+li.selected {
+  color: orange !important;
+  
+}

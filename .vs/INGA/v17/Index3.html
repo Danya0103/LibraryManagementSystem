@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Зміна кольору тексту</title>
+    <style>
+        body {
+
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #333;
+
+        }
+
+        h1 {
+
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+
+        }
+
+        .text-container {
+
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            transition: color 0.3s ease;
+
+        }
+
+        .palette {
+
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+        }
+
+        .color-box {
+
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+        }
+
+        .color-box:hover {
+
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
+        }
+
+        .instructions {
+
+            text-align: center;
+            margin-top: 20px;
+            font-style: italic;
+            color: #7f8c8d;
+
+        }
+    </style>
+</head>
+<body>
+    <h1>Зміна кольору тексту</h1>
+    
+    <div class="text-container" id="text">
+        <p>ЗМІНИ МЕНІ КОЛІР</p>
+    </div>
+    
+    <div class="palette" id="palette">
+        <div class="color-box" data-color="#e74c3c" style="background-color: #e74c3c;"></div>
+        <div class="color-box" data-color="#3498db" style="background-color: #3498db;"></div>
+        <div class="color-box" data-color="#2ecc71" style="background-color: #2ecc71;"></div>
+        <div class="color-box" data-color="#f39c12" style="background-color: #f39c12;"></div>
+        <div class="color-box" data-color="#9b59b6" style="background-color: #9b59b6;"></div>
+        <div class="color-box" data-color="#1abc9c" style="background-color: #1abc9c;"></div>
+        <div class="color-box" data-color="#34495e" style="background-color: #34495e;"></div>
+        <div class="color-box" data-color="#d35400" style="background-color: #d35400;"></div>
+        <div class="color-box" data-color="#c0392b" style="background-color: #c0392b;"></div>
+        <div class="color-box" data-color="#16a085" style="background-color: #16a085;"></div>
+    </div>
+    
+
+    <script>
+        document.getElementById('palette').addEventListener('click', function(event) {
+
+            if (event.target.classList.contains('color-box')) {
+
+                const color = event.target.getAttribute('data-color');
+                document.getElementById('text').style.color = color;
+
+            }
+        });
+        
+    </script>
+</body>
+</html>
