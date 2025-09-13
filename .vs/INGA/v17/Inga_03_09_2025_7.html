@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Task 7</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        ul { list-style: none; padding: 0; }
+        li { padding: 10px; cursor: pointer; border: 1px solid #ccc; margin-bottom: 5px; }
+        li.highlighted { color: orange; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h2>Task 7</h2>
+    <ul id="book-list">
+        <li>Книга 1</li>
+        <li>Книга 2</li>
+        <li>Книга 3</li>
+        <li>Книга 4</li>
+        <li>Книга 5</li>
+    </ul>
+
+    <script>
+        const list = document.getElementById('book-list');
+        let lastClicked = null;
+
+        list.addEventListener('click', (event) => {
+            const item = event.target;
+            if (item.tagName !== 'LI') return;
+
+            if (event.ctrlKey) {
+                item.classList.toggle('highlighted');
+            } else if (event.shiftKey && lastClicked) {
+                const items = Array.from(list.children);
+                const start = items.indexOf(lastClicked);
+                const end = items.indexOf(item);
+                
+                items.forEach(el => el.classList.remove('highlighted'));
+                
+                const rangeStart = Math.min(start, end);
+                const rangeEnd = Math.max(start, end);
+
+                for (let i = rangeStart; i <= rangeEnd; i++) {
+                    items[i].classList.add('highlighted');
+                }
+            } else {
+                document.querySelectorAll('li.highlighted').forEach(el => el.classList.remove('highlighted'));
+                item.classList.add('highlighted');
+            }
+            lastClicked = item;
+        });
+    </script>
+</body>
+</html>

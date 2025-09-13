@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Task 5</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; }
+        table { border-collapse: collapse; margin: 20px auto; }
+        th, td { border: 1px solid #ccc; padding: 10px; text-align: center; }
+        th { background: #333; color: white; }
+    </style>
+</head>
+<body>
+    <h2>Task 5</h2>
+    Місяць: <input type="number" id="month" value="9" min="1" max="12">
+    Рік: <input type="number" id="year" value="2025">
+    <button id="generate-btn">Створити</button>
+    <table id="calendar"></table>
+
+    <script>
+        const monthInput = document.getElementById('month');
+        const yearInput = document.getElementById('year');
+        const generateBtn = document.getElementById('generate-btn');
+        const calendarTable = document.getElementById('calendar');
+
+        function createCalendar(month, year) {
+            calendarTable.innerHTML = '';
+
+            const firstDay = new Date(year, month - 1, 1);
+            const daysInMonth = new Date(year, month, 0).getDate();
+
+            const weekdays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'];
+            const headerRow = calendarTable.insertRow();
+            weekdays.forEach(day => {
+                const th = document.createElement('th');
+                th.textContent = day;
+                headerRow.appendChild(th);
+            });
+
+            let currentDay = 1;
+            let dayOfWeek = (firstDay.getDay() + 6) % 7;
+            
+            let row = calendarTable.insertRow();
+            for (let i = 0; i < dayOfWeek; i++) {
+                row.insertCell().textContent = '';
+            }
+
+            while (currentDay <= daysInMonth) {
+                if (dayOfWeek === 7) {
+                    row = calendarTable.insertRow();
+                    dayOfWeek = 0;
+                }
+                row.insertCell().textContent = currentDay;
+                currentDay++;
+                dayOfWeek++;
+            }
+        }
+
+        generateBtn.addEventListener('click', () => {
+            const month = parseInt(monthInput.value);
+            const year = parseInt(yearInput.value);
+            createCalendar(month, year);
+        });
+
+        const today = new Date();
+        createCalendar(today.getMonth() + 1, today.getFullYear());
+    </script>
+</body>
+</html>

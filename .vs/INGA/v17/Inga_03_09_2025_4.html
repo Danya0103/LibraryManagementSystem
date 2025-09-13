@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Task 4</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        .news-item { border: 1px solid #ccc; padding: 15px; margin-bottom: 10px; }
+        #load-btn { padding: 10px 20px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h2>Task 4</h2>
+    <div id="news-list"></div>
+    <button id="load-btn">Завантажити ще новини</button>
+
+    <script>
+        const newsData = [
+            { title: "Новина 1", text: "Перший текст новини." },
+            { title: "Новина 2", text: "Другий текст новини." },
+            { title: "Новина 3", text: "Третій текст новини." }
+        ];
+        let newsIndex = 0;
+        const newsList = document.getElementById('news-list');
+        const loadBtn = document.getElementById('load-btn');
+
+        function addNews() {
+            if (newsIndex < newsData.length) {
+                const newsItem = newsData[newsIndex];
+                const div = document.createElement('div');
+                div.className = 'news-item';
+                div.innerHTML = `<h3>${newsItem.title}</h3><p>${newsItem.text}</p>`;
+                newsList.appendChild(div);
+                newsIndex++;
+            } else {
+                loadBtn.disabled = true;
+                loadBtn.textContent = "Новин більше немає";
+            }
+        }
+
+        loadBtn.addEventListener('click', addNews);
+        addNews();
+    </script>
+</body>
+</html>

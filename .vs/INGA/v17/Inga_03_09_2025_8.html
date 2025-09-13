@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Завдання 8: Редактор тексту</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        #text-display, #text-editor {
+            width: 80%; padding: 10px; border: 1px solid #ccc; min-height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Редактор тексту</h2>
+    <p>Натисніть <b>Ctrl+E</b> для редагування, <b>Ctrl+S</b> для збереження.</p>
+    <div id="text-display">Це текст, який можна редагувати.</div>
+    <textarea id="text-editor" style="display: none;"></textarea>
+
+    <script>
+        const display = document.getElementById('text-display');
+        const editor = document.getElementById('text-editor');
+
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'e') {
+                e.preventDefault();
+                display.style.display = 'none';
+                editor.style.display = 'block';
+                editor.value = display.textContent;
+                editor.focus();
+            } else if (e.ctrlKey && e.key === 's') {
+                e.preventDefault();
+                display.textContent = editor.value;
+                display.style.display = 'block';
+                editor.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

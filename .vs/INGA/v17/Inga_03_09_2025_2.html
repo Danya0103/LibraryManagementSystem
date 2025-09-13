@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Task 2</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+        img { max-width: 500px; height: auto; border: 2px solid #333; }
+        .controls { margin-top: 20px; }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+        button:disabled { cursor: not-allowed; opacity: 0.5; }
+    </style>
+</head>
+<body>
+    <h2>Task 2</h2>
+    <img id="gallery-image" src="" alt="Зображення">
+    <div class="controls">
+        <button id="prev-btn">Назад</button>
+        <button id="next-btn">Вперед</button>
+    </div>
+
+    <script>
+        const images = [
+            "https://picsum.photos/id/1020/600/400",
+            "https://picsum.photos/id/1016/600/400",
+            "https://picsum.photos/id/1018/600/400"
+        ];
+        let currentIndex = 0;
+        const imgElement = document.getElementById('gallery-image');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        function updateGallery() {
+            imgElement.src = images[currentIndex];
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === images.length - 1;
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateGallery();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < images.length - 1) {
+                currentIndex++;
+                updateGallery();
+            }
+        });
+
+        updateGallery();
+    </script>
+</body>
+</html>

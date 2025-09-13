@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Task 6</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        a.external { text-decoration: none; border-bottom: 1px dotted blue; }
+    </style>
+</head>
+<body>
+    <h2>Task 6</h2>
+    <ul>
+        <li><a href="https://google.com">Google (зовнішнє)</a></li>
+        <li><a href="contacts.html">Наші контакти (внутрішнє)</a></li>
+        <li><a href="https://wikipedia.org">Wikipedia (зовнішнє)</a></li>
+    </ul>
+
+    <script>
+        document.querySelectorAll('a').forEach(link => {
+            if (link.href.startsWith('http://') || link.href.startsWith('https://')) {
+                if (new URL(link.href).hostname !== window.location.hostname) {
+                    link.classList.add('external');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

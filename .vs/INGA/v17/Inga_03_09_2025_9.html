@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Task 9</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+        th { background: #333; color: white; cursor: pointer; }
+        th:hover { background: #555; }
+    </style>
+</head>
+<body>
+    <h2>Task 9</h2>
+    <table id="sortable-table">
+        <thead>
+            <tr>
+                <th data-type="string">Ім'я</th>
+                <th data-type="number">Вік</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>Олег</td><td>30</td></tr>
+            <tr><td>Марія</td><td>25</td></tr>
+            <tr><td>Іван</td><td>40</td></tr>
+            <tr><td>Олена</td><td>22</td></tr>
+        </tbody>
+    </table>
+
+    <script>
+        document.querySelectorAll('th').forEach(header => {
+            header.addEventListener('click', () => {
+                const table = header.closest('table');
+                const tbody = table.querySelector('tbody');
+                const rows = Array.from(tbody.rows);
+                const index = Array.from(header.parentNode.children).indexOf(header);
+                const type = header.dataset.type;
+                const isAsc = !header.classList.contains('asc');
+
+                document.querySelectorAll('th').forEach(h => h.classList.remove('asc', 'desc'));
+                header.classList.toggle(isAsc ? 'asc' : 'desc', isAsc);
+
+                rows.sort((a, b) => {
+                    let aValue = a.cells[index].textContent;
+                    let bValue = b.cells[index].textContent;
+
+                    if (type === 'number') {
+                        aValue = Number(aValue);
+                        bValue = Number(bValue);
+                    }
+
+                    if (aValue < bValue) return isAsc ? -1 : 1;
+                    if (aValue > bValue) return isAsc ? 1 : -1;
+                    return 0;
+                });
+                
+                rows.forEach(row => tbody.appendChild(row));
+            });
+        });
+    </script>
+</body>
+</html>

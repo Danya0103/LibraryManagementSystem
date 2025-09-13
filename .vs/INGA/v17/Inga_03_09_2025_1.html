@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Task 1</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+        #slider { width: 300px; }
+        #value-display { margin-top: 15px; font-size: 20px; }
+    </style>
+</head>
+<body>
+    <h2>Task 1</h2>
+    <input type="range" id="slider" min="0" max="100" value="50">
+    <div id="value-display">Значення: <span id="current-value">50</span></div>
+
+    <script>
+        const slider = document.getElementById('slider');
+        const valueSpan = document.getElementById('current-value');
+
+        slider.addEventListener('input', () => {
+            valueSpan.textContent = slider.value;
+        });
+    </script>
+</body>
+</html>
