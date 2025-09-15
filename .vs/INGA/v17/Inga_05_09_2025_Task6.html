@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Task 6</title>
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: 20px auto; padding: 20px; }
+        .form-group { margin-bottom: 15px; }
+        #seats-container { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 20px; }
+        .seat { padding: 10px; border: 1px solid #ccc; text-align: center; cursor: pointer; background-color: #f0f0f0; }
+        .seat.booked { background-color: #ff6347; color: white; cursor: not-allowed; }
+        .seat.selected { background-color: #4CAF50; color: white; }
+        #booking-records { margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <h2>Бронювання квитків на поїзд</h2>
+    <form id="booking-form">
+        <div class="form-group">
+            <label for="route-select">Виберіть напрямок:</label>
+            <select id="route-select" required>
+                <option value="Київ - Львів">Київ - Львів</option>
+                <option value="Одеса - Харків">Кривий Ріг - Одеса</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="date-input">Дата поїздки:</label>
+            <input type="date" id="date-input" required>
+        </div>
+        
+        <div id="seats-container">
+            </div>
+        
+        <button type="submit" style="margin-top: 20px;">Забронювати вибрані місця</button>
+    </form>
+
+    <hr>
+
+    <h2>Перегляд заброньованих квитків</h2>
+    <div id="booking-records"></div>
+
+    <script>
+        const bookingRecords = [];
+        const bookedSeats = {};
+
+        function generateSeats() {
+            const seatsContainer = document.getElementById('seats-container');
+            seatsContainer.innerHTML = '';
+            for (let i = 1; i <= 20; i++) {
+                const seat = document.createElement('div');
+                seat.classList.add('seat');
+                seat.textContent = `Місце ${i}`;
+                seat.dataset.seatNumber = i;
+                
+                seat.addEventListener('click', function() {
+                    if (!seat.classList.contains('booked')) {
+                        seat.classList.toggle('selected');
+                    }
+                });
+                seatsContainer.appendChild(seat);
+            }
+        }
+        
+        function updateSeatsDisplay() {
+            const seats = document.querySelectorAll('.seat');
+            seats.forEach(seat => {
+                const seatNumber = seat.dataset.seatNumber;
+                const route = document.getElementById('route-select').value;
+                const date = document.getElementById('date-input').value;
+                
+                if (bookedSeats[route] && bookedSeats[route][date] && bookedSeats[route][date].includes(seatNumber)) {
+                    seat.classList.add('booked');
+                    seat.classList.remove('selected');
+                } else {
+                    seat.classList.remove('booked');
+                }
+            });
+        }
+        
+        function displayRecords() {
+            const recordsDiv = document.getElementById('booking-records');
+            recordsDiv.innerHTML = '';
+            if (bookingRecords.length === 0) {
+                recordsDiv.textContent = 'Жодних квитків не заброньовано.';
+                return;
+            }
+            bookingRecords.forEach(record => {
+                const recordDiv = document.createElement('div');
+                recordDiv.innerHTML = `
+                    <p><b>Напрямок:</b> ${record.route}</p>
+                    <p><b>Дата:</b> ${record.date}</p>
+                    <p><b>Місця:</b> ${record.seats.join(', ')}</p>
+                    <hr>
+                `;
+                recordsDiv.appendChild(recordDiv);
+            });
+        }
+
+        window.onload = function() {
+            generateSeats();
+            document.getElementById('route-select').addEventListener('change', updateSeatsDisplay);
+            document.getElementById('date-input').addEventListener('change', updateSeatsDisplay);
+        };
+        
+        document.getElementById('booking-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const route = document.getElementById('route-select').value;
+            const date = document.getElementById('date-input').value;
+            const selectedSeats = Array.from(document.querySelectorAll('.seat.selected')).map(seat => seat.dataset.seatNumber);
+            
+            if (selectedSeats.length === 0) {
+                alert('Будь ласка, виберіть хоча б одне місце.');
+                return;
+            }
+            
+            selectedSeats.forEach(seatNumber => {
+                if (!bookedSeats[route]) bookedSeats[route] = {};
+                if (!bookedSeats[route][date]) bookedSeats[route][date] = [];
+                bookedSeats[route][date].push(seatNumber);
+            });
+
+            bookingRecords.push({
+                route: route,
+                date: date,
+                seats: selectedSeats
+            });
+
+            updateSeatsDisplay();
+            displayRecords();
+            alert('Квитки успішно заброньовано!');
+        });
+    </script>
+
+</body>
+</html>

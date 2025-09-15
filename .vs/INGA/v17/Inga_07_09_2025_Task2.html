@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Task 2</title>
+    <style>
+        body { display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f0f0f0; }
+        .traffic-light { display: flex; flex-direction: column; gap: 10px; padding: 20px; background-color: #333; border-radius: 15px; }
+        .light { width: 80px; height: 80px; border-radius: 50%; opacity: 0.2; }
+        .red { background-color: red; }
+        .yellow { background-color: yellow; }
+        .green { background-color: green; }
+        .active { opacity: 1; }
+    </style>
+</head>
+<body>
+
+    <div class="traffic-light">
+        <div class="light red" id="red-light"></div>
+        <div class="light yellow" id="yellow-light"></div>
+        <div class="light green" id="green-light"></div>
+    </div>
+
+    <script>
+        const lights = ['red', 'yellow', 'green'];
+        let currentIndex = 0;
+
+        function updateLight() {
+            document.getElementById('red-light').classList.remove('active');
+            document.getElementById('yellow-light').classList.remove('active');
+            document.getElementById('green-light').classList.remove('active');
+            
+            const currentLightId = `${lights[currentIndex]}-light`;
+            document.getElementById(currentLightId).classList.add('active');
+
+            currentIndex = (currentIndex + 1) % lights.length;
+        }
+
+        updateLight();
+        setInterval(updateLight, 3000);
+    </script>
+
+</body>
+</html>

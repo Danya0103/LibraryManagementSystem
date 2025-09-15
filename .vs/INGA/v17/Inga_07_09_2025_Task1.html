@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Task 1</title>
+    <style>
+        body { font-family: sans-serif; max-width: 400px; margin: 50px auto; text-align: center; }
+        input[type="number"] { padding: 8px; width: 100px; }
+        button { padding: 8px 16px; cursor: pointer; }
+        #message { margin-top: 20px; font-size: 1.2em; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h2>Вгадай число від 1 до 20</h2>
+    <p>Я загадав число. Спробуй вгадати!</p>
+    
+    <form id="guess-form">
+        <input type="number" id="guess-input" min="1" max="20" required>
+        <button type="submit">Спробувати</button>
+    </form>
+
+    <div id="message"></div>
+
+    <script>
+        const randomNumber = Math.floor(Math.random() * 20) + 1;
+        const messageElement = document.getElementById('message');
+
+        document.getElementById('guess-form').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+            const userGuess = parseInt(document.getElementById('guess-input').value);
+
+            if (userGuess < randomNumber) {
+                messageElement.textContent = "Загадане більше";
+            } else if (userGuess > randomNumber) {
+                messageElement.textContent = "Загадане менше";
+            } else {
+                messageElement.textContent = "Вітаю! Ви вгадали!";
+            }
+        });
+    </script>
+
+</body>
+</html>

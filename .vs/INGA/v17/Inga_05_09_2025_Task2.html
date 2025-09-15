@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Task 2</title>
+    <style>
+        body { font-family: sans-serif; max-width: 600px; margin: 20px auto; padding: 20px; }
+        .question { margin-bottom: 20px; }
+        .answer { margin-bottom: 5px; }
+        .result { margin-top: 20px; font-weight: bold; font-size: 1.2em; }
+    </style>
+</head>
+<body>
+
+    <h2>Пройдіть тест</h2>
+    <form id="test-form">
+        <div class="question">
+            <p>1. Скільки планет у Сонячній системі?</p>
+            <div class="answer">
+                <input type="radio" name="q1" value="a" id="q1a"> <label for="q1a">9</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q1" value="b" id="q1b"> <label for="q1b">8</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>2. Хто написав "Кобзар"?</p>
+            <div class="answer">
+                <input type="radio" name="q2" value="a" id="q2a"> <label for="q2a">Тарас Шевченко</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q2" value="b" id="q2b"> <label for="q2b">Іван Франко</label>
+            </div>
+        </div>
+
+        <button type="submit">Завершити тест</button>
+    </form>
+
+    <div id="result-container" class="result"></div>
+
+    <script>
+        document.getElementById('test-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const correctAnswers = {
+                q1: 'b',
+                q2: 'a'
+            };
+            let score = 0;
+            const form = event.target;
+            
+            for (const question in correctAnswers) {
+                const selectedAnswer = form.elements[question].value;
+                if (selectedAnswer === correctAnswers[question]) {
+                    score++;
+                }
+            }
+
+            const resultContainer = document.getElementById('result-container');
+            resultContainer.textContent = `Ваш результат: ${score} правильних відповідей із 2.`;
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Task 1</title>
+    <style>
+        body { font-family: sans-serif; }
+        .forum-container { max-width: 600px; margin: 20px auto; padding: 20px; border: 1px solid #ccc; }
+        #message-form { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+        #message-input { padding: 10px; border: 1px solid #ccc; }
+        #messages-list { list-style: none; padding: 0; }
+        .message { padding: 10px; border-bottom: 1px solid #eee; }
+    </style>
+</head>
+<body>
+
+    <div class="forum-container">
+        <h2>Список повідомлень</h2>
+        <ul id="messages-list">
+            </ul>
+        
+        <hr>
+
+        <h3>Додати нове повідомлення</h3>
+        <form id="message-form">
+            <textarea id="message-input" rows="4" placeholder="Напишіть ваше повідомлення..." required></textarea>
+            <button type="submit">Додати</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('message-form').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+            const input = document.getElementById('message-input');
+            const messageText = input.value.trim();
+            
+            if (messageText !== '') {
+                const messageList = document.getElementById('messages-list');
+                const newMessage = document.createElement('li');
+                newMessage.classList.add('message');
+                newMessage.textContent = messageText;
+                messageList.prepend(newMessage); 
+                input.value = ''; 
+            }
+        });
+    </script>
+
+</body>
+</html>

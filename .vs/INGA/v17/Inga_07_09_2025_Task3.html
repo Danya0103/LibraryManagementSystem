@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Task 3</title>
+    <style>
+        body { font-family: sans-serif; max-width: 500px; margin: 50px auto; padding: 20px; }
+        .poll-options div { margin-bottom: 10px; }
+        .results-bar { height: 20px; margin-top: 5px; background-color: #eee; border-radius: 5px; overflow: hidden; }
+        .bar { height: 100%; transition: width 0.5s ease-in-out; }
+        .apple-bar { background-color: #4CAF50; }
+        .banana-bar { background-color: #FFC107; }
+        .orange-bar { background-color: #FF9800; }
+        .result-text { font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h2>Який ваш улюблений фрукт?</h2>
+    <form id="poll-form">
+        <div class="poll-options">
+            <div>
+                <input type="radio" name="fruit" value="apple" id="apple-radio" required>
+                <label for="apple-radio">Яблуко 🍏</label>
+            </div>
+            <div>
+                <input type="radio" name="fruit" value="banana" id="banana-radio">
+                <label for="banana-radio">Банан 🍌</label>
+            </div>
+            <div>
+                <input type="radio" name="fruit" value="orange" id="orange-radio">
+                <label for="orange-radio">Апельсин 🍊</label>
+            </div>
+        </div>
+        <button type="submit">Проголосувати</button>
+    </form>
+
+    <hr>
+    
+    <h3>Результати голосування:</h3>
+    <div id="results">
+        <div id="apple-results">
+            <span class="result-text">Яблуко: </span><span id="apple-percent">0%</span>
+            <div class="results-bar"><div id="apple-bar" class="bar apple-bar" style="width: 0%;"></div></div>
+        </div>
+        <div id="banana-results">
+            <span class="result-text">Банан: </span><span id="banana-percent">0%</span>
+            <div class="results-bar"><div id="banana-bar" class="bar banana-bar" style="width: 0%;"></div></div>
+        </div>
+        <div id="orange-results">
+            <span class="result-text">Апельсин: </span><span id="orange-percent">0%</span>
+            <div class="results-bar"><div id="orange-bar" class="bar orange-bar" style="width: 0%;"></div></div>
+        </div>
+    </div>
+
+    <script>
+        let votes = {
+            apple: 0,
+            banana: 0,
+            orange: 0
+        };
+
+        function updateResults() {
+            const totalVotes = votes.apple + votes.banana + votes.orange;
+
+            function getPercentage(fruit) {
+                return totalVotes === 0 ? 0 : (votes[fruit] / totalVotes) * 100;
+            }
+
+            const applePercent = getPercentage('apple').toFixed(0);
+            const bananaPercent = getPercentage('banana').toFixed(0);
+            const orangePercent = getPercentage('orange').toFixed(0);
+
+            document.getElementById('apple-percent').textContent = `${applePercent}%`;
+            document.getElementById('banana-percent').textContent = `${bananaPercent}%`;
+            document.getElementById('orange-percent').textContent = `${orangePercent}%`;
+
+            document.getElementById('apple-bar').style.width = `${applePercent}%`;
+            document.getElementById('banana-bar').style.width = `${bananaPercent}%`;
+            document.getElementById('orange-bar').style.width = `${orangePercent}%`;
+        }
+
+        document.getElementById('poll-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const selectedFruit = document.querySelector('input[name="fruit"]:checked').value;
+            votes[selectedFruit]++;
+            updateResults();
+        });
+
+        updateResults();
+    </script>
+
+</body>
+</html>

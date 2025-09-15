@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Task 5</title>
+    <style>
+        body { font-family: sans-serif; max-width: 600px; margin: 20px auto; padding: 20px; }
+        .form-group { margin-bottom: 15px; }
+        #attendance-list { margin-top: 20px; }
+        #students-list { list-style: none; padding: 0; }
+        .student-item { display: flex; align-items: center; margin-bottom: 5px; }
+        .student-item input { margin-right: 10px; }
+    </style>
+</head>
+<body>
+
+    <h2>Відмітити присутніх</h2>
+    <form id="attendance-form">
+        <div class="form-group">
+            <label for="group-select">Виберіть групу:</label>
+            <select id="group-select"></select>
+        </div>
+        
+        <div class="form-group">
+            <label for="subject-select">Виберіть пару:</label>
+            <select id="subject-select"></select>
+        </div>
+        
+        <div class="form-group">
+            <label for="topic-input">Тема заняття:</label>
+            <input type="text" id="topic-input" required>
+        </div>
+        
+        <div class="form-group">
+            <h4>Студенти:</h4>
+            <ul id="students-list"></ul>
+        </div>
+        
+        <button type="submit">Зберегти відвідуваність</button>
+    </form>
+
+    <hr>
+
+    <h2>Перегляд відмічених пар</h2>
+    <div id="attendance-records"></div>
+
+    <script>
+        const groups = ['Група А', 'Група Б'];
+        const subjects = ['Математика', 'Фізика', 'Історія'];
+        const students = {
+            'Група А': ['Іван', 'Марія', 'Петро'],
+            'Група Б': ['Олена', 'Сергій', 'Анна']
+        };
+        const attendanceRecords = [];
+
+        function populateSelect(selectId, options) {
+            const select = document.getElementById(selectId);
+            options.forEach(option => {
+                const opt = document.createElement('option');
+                opt.value = option;
+                opt.textContent = option;
+                select.appendChild(opt);
+            });
+        }
+
+        function populateStudents() {
+            const group = document.getElementById('group-select').value;
+            const studentsList = document.getElementById('students-list');
+            studentsList.innerHTML = '';
+            students[group].forEach(student => {
+                const li = document.createElement('li');
+                li.classList.add('student-item');
+                li.innerHTML = `<input type="checkbox" name="student" value="${student}" id="${student}"> <label for="${student}">${student}</label>`;
+                studentsList.appendChild(li);
+            });
+        }
+
+        function displayRecords() {
+            const recordsDiv = document.getElementById('attendance-records');
+            recordsDiv.innerHTML = '';
+            if (attendanceRecords.length === 0) {
+                recordsDiv.textContent = 'Жодних записів не знайдено.';
+                return;
+            }
+
+            attendanceRecords.forEach(record => {
+                const recordDiv = document.createElement('div');
+                recordDiv.innerHTML = `
+                    <p><b>Група:</b> ${record.group}</p>
+                    <p><b>Пара:</b> ${record.subject}</p>
+                    <p><b>Тема:</b> ${record.topic}</p>
+                    <p><b>Присутні:</b> ${record.present.join(', ')}</p>
+                    <hr>
+                `;
+                recordsDiv.appendChild(recordDiv);
+            });
+        }
+
+        window.onload = function() {
+            populateSelect('group-select', groups);
+            populateSelect('subject-select', subjects);
+            populateStudents();
+            document.getElementById('group-select').addEventListener('change', populateStudents);
+        };
+
+        document.getElementById('attendance-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const group = document.getElementById('group-select').value;
+            const subject = document.getElementById('subject-select').value;
+            const topic = document.getElementById('topic-input').value;
+            const presentStudents = Array.from(document.querySelectorAll('#students-list input[type="checkbox"]:checked')).map(cb => cb.value);
+
+            attendanceRecords.push({
+                group: group,
+                subject: subject,
+                topic: topic,
+                present: presentStudents
+            });
+
+            document.getElementById('attendance-form').reset();
+            populateStudents(); 
+            displayRecords();
+            alert('Відвідуваність збережено!');
+        });
+    </script>
+
+</body>
+</html>

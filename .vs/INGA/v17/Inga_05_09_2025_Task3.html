@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Task 3</title>
+    <style>
+        body { font-family: sans-serif; max-width: 600px; margin: 20px auto; padding: 20px; }
+        #text-form { display: flex; flex-direction: column; gap: 10px; }
+        .options { display: flex; gap: 20px; }
+        #output-text { margin-top: 20px; padding: 15px; border: 1px solid #ccc; min-height: 50px; }
+    </style>
+</head>
+<body>
+
+    <h2>Форма для стилізації тексту</h2>
+    <form id="text-form">
+        <label for="text-input">Введіть текст:</label>
+        <textarea id="text-input" rows="5" required></textarea>
+        
+        <div class="options">
+            <div>
+                <label for="color-select">Колір:</label>
+                <select id="color-select">
+                    <option value="black">Чорний</option>
+                    <option value="blue">Синій</option>
+                    <option value="red">Червоний</option>
+                    <option value="green">Зелений</option>
+                </select>
+            </div>
+            <div>
+                <input type="checkbox" id="bold-checkbox">
+                <label for="bold-checkbox">Жирний</label>
+            </div>
+            <div>
+                <input type="checkbox" id="italic-checkbox">
+                <label for="italic-checkbox">Курсив</label>
+            </div>
+        </div>
+        
+        <button type="submit">Показати стилізований текст</button>
+    </form>
+
+    <div id="output-text"></div>
+
+    <script>
+        document.getElementById('text-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const textInput = document.getElementById('text-input').value;
+            const color = document.getElementById('color-select').value;
+            const isBold = document.getElementById('bold-checkbox').checked;
+            const isItalic = document.getElementById('italic-checkbox').checked;
+
+            const outputDiv = document.getElementById('output-text');
+            outputDiv.textContent = textInput;
+            outputDiv.style.color = color;
+            outputDiv.style.fontWeight = isBold ? 'bold' : 'normal';
+            outputDiv.style.fontStyle = isItalic ? 'italic' : 'normal';
+        });
+    </script>
+
+</body>
+</html>
