@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Інформація профілю</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f2f5;
+        }
+        .контейнер {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 400px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .група-форми {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .помилка {
+            color: #d9534f;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+        .група-кнопок {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #кнопкаЗберегти {
+            background-color: #5cb85c;
+            color: white;
+        }
+        #кнопкаВийти {
+            background-color: #f0ad4e;
+            color: white;
+        }
+        #кнопкаЗберегти:hover {
+            background-color: #4cae4c;
+        }
+        #кнопкаВийти:hover {
+            background-color: #ec971f;
+        }
+    </style>
+</head>
+<body>
+    <div class="контейнер">
+        <h2>Профіль користувача</h2>
+        <form id="формаПрофілю">
+            <div class="група-форми">
+                <label for="ім_я">Ім’я</label>
+                <input type="text" id="ім_я" name="ім_я">
+                <div id="помилкаІмені" class="помилка"></div>
+            </div>
+            <div class="група-форми">
+                <label for="прізвище">Прізвище</label>
+                <input type="text" id="прізвище" name="прізвище">
+                <div id="помилкаПрізвища" class="помилка"></div>
+            </div>
+            <div class="група-форми">
+                <label for="рікНародження">Рік народження</label>
+                <input type="number" id="рікНародження" name="рікНародження">
+                <div id="помилкаРоку" class="помилка"></div>
+            </div>
+            <div class="група-форми">
+                <label for="стать">Стать</label>
+                <select id="стать" name="стать">
+                    <option value="" disabled selected>Оберіть стать</option>
+                    <option value="чоловіча">Чоловіча</option>
+                    <option value="жіноча">Жіноча</option>
+                </select>
+                <div id="помилкаСтаті" class="помилка"></div>
+            </div>
+            <div class="група-форми">
+                <label for="телефон">Номер телефону</label>
+                <input type="text" id="телефон" name="телефон">
+                <div id="помилкаТелефону" class="помилка"></div>
+            </div>
+            <div class="група-форми">
+                <label for="скайп">Skype</label>
+                <input type="text" id="скайп" name="скайп">
+                <div id="помилкаСкайпу" class="помилка"></div>
+            </div>
+            <div class="група-кнопок">
+                <button type="button" id="кнопкаВийти">Вийти</button>
+                <button type="submit" id="кнопкаЗберегти">Зберегти</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function отриматиКуку(назва) {
+            const назваКуки = назва + "=";
+            const декодованіКуки = decodeURIComponent(document.cookie);
+            const масивКуків = декодованіКуки.split(';');
+            for (let i = 0; i < масивКуків.length; i++) {
+                let кука = масивКуків[i];
+                while (кука.charAt(0) === ' ') {
+                    кука = кука.substring(1);
+                }
+                if (кука.indexOf(назваКуки) === 0) {
+                    return кука.substring(назваКуки.length, кука.length);
+                }
+            }
+            return "";
+        }
+
+        function видалитиКуку(назва) {
+            document.cookie = назва + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const кукаКористувача = отриматиКуку('дані_користувача');
+            const кукаПрофілю = отриматиКуку('дані_профілю');
+
+            if (!кукаКористувача) {
+                window.location.href = 'старт.html';
+                return;
+            }
+
+            const форма = document.getElementById('формаПрофілю');
+            const кнопкаВийти = document.getElementById('кнопкаВийти');
+
+            if (кукаПрофілю) {
+                const даніПрофілю = JSON.parse(кукаПрофілю);
+                document.getElementById('ім_я').value = даніПрофілю.ім_я || '';
+                document.getElementById('прізвище').value = даніПрофілю.прізвище || '';
+                document.getElementById('рікНародження').value = даніПрофілю.рікНародження || '';
+                document.getElementById('стать').value = даніПрофілю.стать || '';
+                document.getElementById('телефон').value = даніПрофілю.телефон || '';
+                document.getElementById('скайп').value = даніПрофілю.скайп || '';
+            }
+
+            кнопкаВийти.addEventListener('click', () => {
+                видалитиКуку('дані_користувача');
+                видалитиКуку('дані_профілю');
+                window.location.href = 'старт.html';
+            });
+
+            форма.addEventListener('submit', (подія) => {
+                подія.preventDefault();
+                let правильніДані = true;
+
+                const ім_я = document.getElementById('ім_я').value.trim();
+                const прізвище = document.getElementById('прізвище').value.trim();
+                const рікНародження = document.getElementById('рікНародження').value;
+                const стать = document.getElementById('стать').value;
+                const телефон = document.getElementById('телефон').value.trim();
+                const скайп = document.getElementById('скайп').value.trim();
+
+                const помилкаІмені = document.getElementById('помилкаІмені');
+                const помилкаПрізвища = document.getElementById('помилкаПрізвища');
+                const помилкаРоку = document.getElementById('помилкаРоку');
+                const помилкаСтаті = document.getElementById('помилкаСтаті');
+                const помилкаТелефону = document.getElementById('помилкаТелефону');
+                const помилкаСкайпу = document.getElementById('помилкаСкайпу');
+
+                const поточнийРік = new Date().getFullYear();
+
+                document.querySelectorAll('.помилка').forEach(елемент => елемент.style.display = 'none');
+
+                const регулярнийВиразІмені = /^[a-zA-Zа-яА-ЯіІїЇєЄґҐ]+$/;
+                if (!ім_я) {
+                    помилкаІмені.textContent = 'Ім’я - обов\'язкове поле.';
+                    помилкаІмені.style.display = 'block';
+                    правильніДані = false;
+                } else if (!регулярнийВиразІмені.test(ім_я) || ім_я.length > 20) {
+                    помилкаІмені.textContent = 'Ім\'я має містити тільки літери, до 20 символів.';
+                    помилкаІмені.style.display = 'block';
+                    правильніДані = false;
+                }
+
+                if (!прізвище) {
+                    помилкаПрізвища.textContent = 'Прізвище - обов\'язкове поле.';
+                    помилкаПрізвища.style.display = 'block';
+                    правильніДані = false;
+                } else if (!регулярнийВиразІмені.test(прізвище) || прізвище.length > 20) {
+                    помилкаПрізвища.textContent = 'Прізвище має містити тільки літери, до 20 символів.';
+                    помилкаПрізвища.style.display = 'block';
+                    правильніДані = false;
+                }
+
+                if (!рікНародження) {
+                    помилкаРоку.textContent = 'Рік народження - обов\'язкове поле.';
+                    помилкаРоку.style.display = 'block';
+                    правильніДані = false;
+                } else if (рікНародження < 1900 || рікНародження > поточнийРік) {
+                    помилкаРоку.textContent = `Рік народження має бути в діапазоні 1900 - ${поточнийРік}.`;
+                    помилкаРоку.style.display = 'block';
+                    правильніДані = false;
+                }
+
+                if (!стать) {
+                    помилкаСтаті.textContent = 'Стать - обов\'язкове поле.';
+                    помилкаСтаті.style.display = 'block';
+                    правильніДані = false;
+                }
+
+                const регулярнийВиразТелефону = /^[\d\s\-\(\)]+$/;
+                const цифриТелефону = телефон.replace(/[^\d]/g, '');
+                if (телефон && (!регулярнийВиразТелефону.test(телефон) || цифриТелефону.length < 10 || цифриТелефону.length > 12)) {
+                    помилкаТелефону.textContent = 'Номер телефону має містити 10-12 цифр, пробіли, дужки та дефіси.';
+                    помилкаТелефону.style.display = 'block';
+                    правильніДані = false;
+                }
+
+                const регулярнийВиразСкайпу = /^[a-zA-Z0-9.\-_]+$/;
+                if (скайп && !регулярнийВиразСкайпу.test(скайп)) {
+                    помилкаСкайпу.textContent = 'Skype може містити літери, цифри, дефіси та крапки.';
+                    помилкаСкайпу.style.display = 'block';
+                    правильніДані = false;
+                }
+
+                if (правильніДані) {
+                    const датаЗакінчення = new Date();
+                    датаЗакінчення.setTime(датаЗакінчення.getTime() + (60 * 60 * 1000));
+                    const даніПрофілю = JSON.stringify({ ім_я, прізвище, рікНародження, стать, телефон, скайп });
+                    document.cookie = `дані_профілю=${даніПрофілю}; expires=${датаЗакінчення.toUTCString()}; path=/`;
+
+                    alert('Дані збережено!');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

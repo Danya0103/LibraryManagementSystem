@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Реєстрація</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f2f5;
+        }
+        .контейнер {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 350px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .група-форми {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .помилка {
+            color: #d9534f;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #4cae4c;
+        }
+    </style>
+</head>
+<body>
+    <div class="контейнер">
+        <h2>Реєстрація</h2>
+        <form id="формаРеєстрації">
+            <div class="група-форми">
+                <label for="пошта">Електронна пошта</label>
+                <input type="text" id="пошта" name="пошта" required>
+                <div id="помилкаПошти" class="помилка"></div>
+            </div>
+            <div class="група-форми">
+                <label for="пароль">Пароль</label>
+                <input type="password" id="пароль" name="пароль" required>
+                <div id="помилкаПароля" class="помилка"></div>
+            </div>
+            <div class="група-форми">
+                <label for="підтвердженняПароля">Підтвердження пароля</label>
+                <input type="password" id="підтвердженняПароля" name="підтвердженняПароля" required>
+                <div id="помилкаПідтвердження" class="помилка"></div>
+            </div>
+            <button type="submit">Зареєструватись</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const куки = document.cookie.split(';').map(кука => кука.trim());
+            const кукаКористувача = куки.find(кука => кука.startsWith('дані_користувача='));
+
+            if (кукаКористувача) {
+                window.location.href = 'профіль.html';
+                return;
+            }
+
+            const форма = document.getElementById('формаРеєстрації');
+            форма.addEventListener('submit', (подія) => {
+                подія.preventDefault();
+                let правильніДані = true;
+
+                const пошта = document.getElementById('пошта').value.trim();
+                const пароль = document.getElementById('пароль').value;
+                const підтвердженняПароля = document.getElementById('підтвердженняПароля').value;
+
+                const помилкаПошти = document.getElementById('помилкаПошти');
+                const помилкаПароля = document.getElementById('помилкаПароля');
+                const помилкаПідтвердження = document.getElementById('помилкаПідтвердження');
+
+                помилкаПошти.style.display = 'none';
+                помилкаПароля.style.display = 'none';
+                помилкаПідтвердження.style.display = 'none';
+
+                const регулярнийВиразПошти = /^[a-zA-Z0-9.\-_]{3,}@/;
+                if (!пошта) {
+                    помилкаПошти.textContent = 'Електронна пошта - обов\'язкове поле.';
+                    помилкаПошти.style.display = 'block';
+                    правильніДані = false;
+                } else if (!регулярнийВиразПошти.test(пошта) || !пошта.includes('.')) {
+                    помилкаПошти.textContent = 'Некоректний формат електронної пошти.';
+                    помилкаПошти.style.display = 'block';
+                    правильніДані = false;
+                }
+
+                const маєМалуЛітеру = /[a-z]/.test(пароль);
+                const маєВеликуЛітеру = /[A-Z]/.test(пароль);
+                const маєЦифру = /\d/.test(пароль);
+                if (!пароль) {
+                    помилкаПароля.textContent = 'Пароль - обов\'язкове поле.';
+                    помилкаПароля.style.display = 'block';
+                    правильніДані = false;
+                } else if (пароль.length < 6 || !маєМалуЛітеру || !маєВеликуЛітеру || !маєЦифру) {
+                    помилкаПароля.textContent = 'Пароль має містити 6+ символів, 1 велику, 1 маленьку літеру та 1 цифру.';
+                    помилкаПароля.style.display = 'block';
+                    правильніДані = false;
+                }
+
+                if (!підтвердженняПароля) {
+                    помилкаПідтвердження.textContent = 'Підтвердження пароля - обов\'язкове поле.';
+                    помилкаПідтвердження.style.display = 'block';
+                    правильніДані = false;
+                } else if (пароль !== підтвердженняПароля) {
+                    помилкаПідтвердження.textContent = 'Паролі не збігаються.';
+                    помилкаПідтвердження.style.display = 'block';
+                    правильніДані = false;
+                }
+
+                if (правильніДані) {
+                    const датаЗакінчення = new Date();
+                    датаЗакінчення.setTime(датаЗакінчення.getTime() + (60 * 60 * 1000));
+                    const даніКористувача = JSON.stringify({ пошта, пароль });
+                    document.cookie = `дані_користувача=${даніКористувача}; expires=${датаЗакінчення.toUTCString()}; path=/`;
+
+                    window.location.href = 'профіль.html';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

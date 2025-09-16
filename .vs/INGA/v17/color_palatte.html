@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Палітра кольорів</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 800px;
+            margin-bottom: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            color: #333;
+        }
+
+        .color-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .form-group input, .form-group select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .error {
+            color: #d9534f;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+
+        .button-group button {
+            padding: 10px 20px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .button-group button:hover {
+            background-color: #4cae4c;
+        }
+
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .color-item {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .color-swatch {
+            width: 100%;
+            height: 100px;
+        }
+
+        .color-info {
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .color-info h4 {
+            margin: 0 0 5px 0;
+            color: #333;
+        }
+
+        .color-info p {
+            margin: 0;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Палітра кольорів</h1>
+        </div>
+
+        <div class="color-form">
+            <div class="form-group">
+                <label for="colorName">Назва</label>
+                <input type="text" id="colorName">
+                <div id="colorNameError" class="error"></div>
+            </div>
+            <div class="form-group">
+                <label for="colorType">Тип</label>
+                <select id="colorType">
+                    <option value="RGB">RGB</option>
+                    <option value="RGBA">RGBA</option>
+                    <option value="HEX">HEX</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="colorCode">Код кольору</label>
+                <input type="text" id="colorCode" placeholder="Напр. 255,0,0">
+                <div id="colorCodeError" class="error"></div>
+            </div>
+            <div class="button-group">
+                <button id="saveBtn">Зберегти</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="colorGrid" class="color-grid"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const saveBtn = document.getElementById('saveBtn');
+            const colorNameInput = document.getElementById('colorName');
+            const colorTypeSelect = document.getElementById('colorType');
+            const colorCodeInput = document.getElementById('colorCode');
+            const colorGrid = document.getElementById('colorGrid');
+
+            const colorNameError = document.getElementById('colorNameError');
+            const colorCodeError = document.getElementById('colorCodeError');
+
+            const COOKIE_NAME = 'color_palette';
+            const COOKIE_EXPIRY_HOURS = 3;
+            let colors = [];
+
+            function getCookie(name) {
+                const cookieStr = document.cookie.split(';').find(row => row.trim().startsWith(name + '='));
+                return cookieStr ? decodeURIComponent(cookieStr.split('=')[1]) : '';
+            }
+
+            function setCookie(name, value, hours) {
+                const expiry = new Date();
+                expiry.setTime(expiry.getTime() + (hours * 60 * 60 * 1000));
+                document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expiry.toUTCString()}; path=/`;
+            }
+
+            function loadColorsFromCookie() {
+                const colorsJson = getCookie(COOKIE_NAME);
+                if (colorsJson) {
+                    try {
+                        colors = JSON.parse(colorsJson);
+                        renderColors();
+                    } catch (e) {
+                        console.error("Помилка при розборі даних з Cookie:", e);
+                        colors = [];
+                    }
+                }
+            }
+
+            function saveColorsToCookie() {
+                setCookie(COOKIE_NAME, JSON.stringify(colors), COOKIE_EXPIRY_HOURS);
+            }
+
+            function renderColors() {
+                colorGrid.innerHTML = '';
+                colors.forEach(color => {
+                    const colorItem = document.createElement('div');
+                    colorItem.className = 'color-item';
+
+                    const colorSwatch = document.createElement('div');
+                    colorSwatch.className = 'color-swatch';
+                    colorSwatch.style.backgroundColor = color.code;
+
+                    const colorInfo = document.createElement('div');
+                    colorInfo.className = 'color-info';
+
+                    const colorName = document.createElement('h4');
+                    colorName.textContent = color.name;
+
+                    const colorType = document.createElement('p');
+                    colorType.textContent = `Тип: ${color.type}`;
+
+                    const colorCode = document.createElement('p');
+                    colorCode.textContent = `Код: ${color.code}`;
+
+                    colorInfo.appendChild(colorName);
+                    colorInfo.appendChild(colorType);
+                    colorInfo.appendChild(colorCode);
+
+                    colorItem.appendChild(colorSwatch);
+                    colorItem.appendChild(colorInfo);
+
+                    colorGrid.appendChild(colorItem);
+                });
+            }
+
+            function validateForm() {
+                let isValid = true;
+                const name = colorNameInput.value.trim();
+                const type = colorTypeSelect.value;
+                const code = colorCodeInput.value.trim();
+
+                colorNameError.style.display = 'none';
+                colorCodeError.style.display = 'none';
+
+                if (!name) {
+                    colorNameError.textContent = 'Назва - обов’язкове поле.';
+                    colorNameError.style.display = 'block';
+                    isValid = false;
+                } else if (!/^[a-zA-Zа-яА-ЯіІїЇєЄґҐ]+$/.test(name)) {
+                    colorNameError.textContent = 'Назва повинна містити тільки літери.';
+                    colorNameError.style.display = 'block';
+                    isValid = false;
+                } else {
+                    const isDuplicate = colors.some(color => color.name.toLowerCase() === name.toLowerCase());
+                    if (isDuplicate) {
+                        colorNameError.textContent = 'Назва вже існує.';
+                        colorNameError.style.display = 'block';
+                        isValid = false;
+                    }
+                }
+
+                if (!code) {
+                    colorCodeError.textContent = 'Код кольору - обов\'язкове поле.';
+                    colorCodeError.style.display = 'block';
+                    isValid = false;
+                } else {
+                    switch (type) {
+                        case 'RGB':
+                            const rgbValues = code.split(',').map(v => parseInt(v.trim(), 10));
+                            if (rgbValues.length !== 3 || rgbValues.some(val => isNaN(val) || val < 0 || val > 255)) {
+                                colorCodeError.textContent = 'RGB має бути 3 числа від 0 до 255 через кому.';
+                                colorCodeError.style.display = 'block';
+                                isValid = false;
+                            }
+                            break;
+                        case 'RGBA':
+                            const rgbaValues = code.split(',').map(v => parseFloat(v.trim()));
+                            if (rgbaValues.length !== 4 || rgbaValues.slice(0, 3).some(val => isNaN(val) || val < 0 || val > 255) || isNaN(rgbaValues[3]) || rgbaValues[3] < 0 || rgbaValues[3] > 1) {
+                                colorCodeError.textContent = 'RGBA має бути 4 числа (перші 3 від 0-255, останнє від 0-1) через кому.';
+                                colorCodeError.style.display = 'block';
+                                isValid = false;
+                            }
+                            break;
+                        case 'HEX':
+                            const hexRegex = /^#([0-9A-Fa-f]{6})$/;
+                            if (!hexRegex.test(code)) {
+                                colorCodeError.textContent = 'HEX має бути # і 6 символів (цифри або літери A-F).';
+                                colorCodeError.style.display = 'block';
+                                isValid = false;
+                            }
+                            break;
+                    }
+                }
+                return isValid;
+            }
+
+            function addColor() {
+                if (validateForm()) {
+                    const name = colorNameInput.value.trim();
+                    const type = colorTypeSelect.value;
+                    let code = colorCodeInput.value.trim();
+
+                    if (type === 'HEX' && !code.startsWith('#')) {
+                        code = `#${code}`;
+                    } else if (type === 'RGB' || type === 'RGBA') {
+                        code = `${type.toLowerCase()}(${code})`;
+                    }
+
+                    const newColor = {
+                        name: name,
+                        type: type,
+                        code: code
+                    };
+
+                    colors.push(newColor);
+                    renderColors();
+                    saveColorsToCookie();
+                    alert('Колір додано!');
+                    colorNameInput.value = '';
+                    colorCodeInput.value = '';
+                }
+            }
+
+            saveBtn.addEventListener('click', addColor);
+            loadColorsFromCookie();
+        });
+    </script>
+</body>
+</html>
