@@ -1,161 +1,62 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Чисельний регулятор</title>
-    <style>
-        body {
 
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background: linear-gradient(135deg, #2575fc 100%);
+    <title>MY WEATHER</title>
 
-        }
-        
-        .counter-container {
-
-            text-align: center;
-            background-color: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            width: 300px;
-
-        }
-        
-        h2 {
-
-            color: #333;
-            margin-bottom: 30px;
-            font-size: 28px;
-
-        }
-        
-        .counter-value {
-
-            font-size: 60px;
-            font-weight: bold;
-            margin: 30px 0;
-            padding: 15px;
-            border: 3px solid #2575fc;
-            border-radius: 10px;
-            display: inline-block;
-            min-width: 150px;
-            color: #2575fc;
-            background-color: #f8f9fa;
-
-        }
-        
-        .buttons-container {
-
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-top: 20px;
-
-        }
-        
-        .btn {
-
-            padding: 18px 30px;
-            font-size: 24px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-weight: bold;
-
-        }
-        
-        .btn-increase {
-
-            background-color: #4CAF50;
-            color: white;
-
-        }
-        
-        .btn-decrease {
-
-            background-color: #f44336;
-            color: white;
-
-        }
-        
-        .btn:hover {
-
-            opacity: 0.9;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-
-        }
-        
-        .btn:active {
-
-            transform: translateY(0);
-
-        }
-    </style>
+    <link rel="stylesheet" 
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" 
+          rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="counter-container">
-        <h2>Чисельний регулятор</h2>
-        <div class="counter-value" id="counter">0</div>
-        
-        <div class="buttons-container">
-            <button class="btn btn-decrease" id="decrease">-</button>
-            <button class="btn btn-increase" id="increase">+</button>
+    <div class="weather-app">
+        <div class="search-container">
+            <input type="text" id="city-input" placeholder="Search city...">
+            <button id="search-btn">
+                <i class="fas fa-search"></i>
+            </button>
+            <button id="location-btn">
+                <i class="fas fa-location-arrow"></i>
+            </button>
         </div>
+
+        <div class="weather-display">
+            <div class="current-weather">
+                <div class="weather-main">
+                <div class="location" id="location">Kryvyi Rih, UA</div>
+                <div class="date" id="date">Saturday, September 20</div>
+                <div class="temperature" id="temp">26° C</div>
+                <div class="conditions" id="conditions">Partly Cloudy</div>
+            </div>
+            <div class="weather-icon">
+                <img src="" alt="Weather Icon" id="weather-icon"></div>
+
+        <div class="weather-details">
+        <div class="detail">
+        <i class="fa fa-temperature-high"></i>
+        <span id="feels-like">Feels like: 27°</span><div>
+    <div class="detail">
+        <i class="fas fa-tint"></i>
+        <span id="humidity">Humidity: 65%</span><div></div>
+        <div class="detail">
+        <i class="fas fa-wind"></i>
+        <span id="wind">Wind 12 km/h</span><div></div>
     </div>
+    <div class="forecast" id="forecast">
+</div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
+<div class="loading" id="loading">
+    <div class="loader"></div>
+    <p>Loading weather data...</p>
+</div>
 
-            const counterElement = document.getElementById('counter');
-            const increaseButton = document.getElementById('increase');
-            const decreaseButton = document.getElementById('decrease');
-            
-            let count = 0;
-            
-            function updateCounter() {
-
-                counterElement.textContent = count;
-
-            }
-            
-            increaseButton.addEventListener('click', function() {
-
-                count++;
-                updateCounter();
-
-            });
-            
-            decreaseButton.addEventListener('click', function() {
-
-                count--;
-                updateCounter();
-
-            });
-            
-            document.addEventListener('keydown', function(event) {
-
-                if (!event.key.includes('F') && event.key !== 'Tab' && event.key !== 'Escape') {
-
-                    event.preventDefault();
-
-                }
-            });
-            
-            document.addEventListener('contextmenu', function(event) {
-
-                event.preventDefault();
-
-            });
-        });
-    </script>
+<script src="script.js"></script>
 </body>
 </html>
+
+
+
