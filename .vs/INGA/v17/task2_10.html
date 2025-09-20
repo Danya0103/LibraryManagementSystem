@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Завдання 2</title>
+</head>
+<body>
+  <form id="loginForm">
+    <label>Email: <input type="email" id="email"></label><br>
+    <label>Пароль: <input type="password" id="password"></label><br>
+    <button type="submit">Увійти</button>
+  </form>
+  <p id="msg"></p>
+
+  <script>
+    function setCookie(name, value, minutes) {
+      const d = new Date();
+      d.setTime(d.getTime() + minutes * 60000);
+      document.cookie = name + "=" + value + ";expires=" + d.toUTCString() + ";path=/";
+    }
+    function getCookie(name) {
+      let match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+      return match ? match[2] : null;
+    }
+
+    const form = document.getElementById("loginForm");
+    const msg = document.getElementById("msg");
+    let attempts = 0;
+
+    if (getCookie("blocked")) {
+      form.style.display = "none";
+      msg.innerText = "Форма заблокована на 10 хвилин";
+    }
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const pass = document.getElementById("password").value;
+
+      if (email === "test@mail.com" && pass === "1234") {
+        msg.innerText = "Вхід успішний!";
+      } else {
+        attempts++;
+        msg.innerText = "Помилка входу. Спроба " + attempts;
+        if (attempts >= 5) {
+          setCookie("blocked", "true", 10);
+          form.style.display = "none";
+          msg.innerText = "Форма заблокована на 10 хвилин";
+        }
+      }
+    });
+  </script>
+</body>
+</html>

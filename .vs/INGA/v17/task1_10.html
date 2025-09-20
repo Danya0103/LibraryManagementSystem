@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Завдання 1</title>
+</head>
+<body>
+  <form>
+    <label>Username:
+      <input type="text" id="username">
+    </label>
+    <p id="warning" style="color:red; display:none;">Дозволені лише латинські букви та цифри!</p>
+  </form>
+
+  <script>
+    const input = document.getElementById("username");
+    const warning = document.getElementById("warning");
+
+    input.addEventListener("input", () => {
+      if (!/^[a-zA-Z0-9]*$/.test(input.value)) {
+        input.value = "";
+        warning.style.display = "block";
+      } else {
+        warning.style.display = "none";
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<form>
+  <label>Пароль:
+    <input type="password" id="pass">
+  </label>
+  <p id="msg" style="color:red;"></p>
+</form>
+
+<script>
+  const pass = document.getElementById("pass");
+  const msg = document.getElementById("msg");
+  pass.addEventListener("input", () => {
+    if (!/[!@#$%^&*]/.test(pass.value)) {
+      msg.innerText = "Має бути хоча б один спецсимвол (!@#$%^&*)";
+    } else {
+      msg.innerText = "";
+    }
+  });
+</script>

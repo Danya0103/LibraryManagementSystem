@@ -1,0 +1,26 @@
+<form>
+  <label>Дата заїзду: <input type="date" id="checkin"></label><br>
+  <label>Дата виїзду: <input type="date" id="checkout"></label><br>
+  <button type="submit" id="bookBtn">Забронювати</button>
+</form>
+<p id="msg" style="color:red;"></p>
+
+<script>
+  const checkin = document.getElementById("checkin");
+  const checkout = document.getElementById("checkout");
+  const bookBtn = document.getElementById("bookBtn");
+  const msg = document.getElementById("msg");
+
+  function validateDates() {
+    if (checkout.value && checkin.value && checkout.value <= checkin.value) {
+      msg.innerText = "Дата виїзду має бути пізніше дати заїзду!";
+      bookBtn.disabled = true;
+    } else {
+      msg.innerText = "";
+      bookBtn.disabled = false;
+    }
+  }
+
+  checkin.addEventListener("change", validateDates);
+  checkout.addEventListener("change", validateDates);
+</script>

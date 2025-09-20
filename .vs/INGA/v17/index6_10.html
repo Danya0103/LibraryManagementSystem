@@ -1,0 +1,32 @@
+<form id="subscribeForm">
+  <label>Email: <input type="email" id="subEmail"></label>
+  <button type="submit">Підписатися</button>
+</form>
+<p id="msg"></p>
+
+<script>
+  function setCookie(name, value, days) {
+    const d = new Date();
+    d.setTime(d.getTime() + (days*24*60*60*1000));
+    document.cookie = name + "=" + value + ";expires=" + d.toUTCString();
+  }
+  function getCookie(name) {
+    let match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? match[2] : null;
+  }
+
+  const form = document.getElementById("subscribeForm");
+  const msg = document.getElementById("msg");
+
+  if (getCookie("subscribed")) {
+    form.style.display = "none";
+    msg.innerText = "Ви вже підписані";
+  }
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    setCookie("subscribed", "true", 365);
+    form.style.display = "none";
+    msg.innerText = "Ви вже підписані";
+  });
+</script>

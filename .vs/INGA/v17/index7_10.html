@@ -1,0 +1,18 @@
+<form>
+  <label>Дата: <input type="date" id="date"></label>
+  <p id="msg" style="color:red;"></p>
+</form>
+
+<script>
+  const input = document.getElementById("date");
+  const msg = document.getElementById("msg");
+
+  input.addEventListener("change", () => {
+    let today = new Date().toISOString().split("T")[0];
+    if (input.value > today) {
+      msg.innerText = "Дата не може бути у майбутньому!";
+    } else {
+      msg.innerText = "";
+    }
+  });
+</script>
